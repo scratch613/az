@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+IndexIgnore */*
+RewriteEngine on
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule . index.php
+
+# AuthName "Secure Area"
+# AuthType Basic
+# AuthUserFile /var/www/bronycon.in.ua/www/public/.htpasswd
+# require valid-user
