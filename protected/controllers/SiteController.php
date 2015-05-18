@@ -119,13 +119,15 @@ class SiteController extends Controller
 		 * }
 		 */
 
-		if (isset ( $_POST ['Profiles'] )) {
-			$model->attributes = $_POST ['Profiles'];
+		if (isset ( $_POST ['Profile'] )) {
+			$model->attributes = $_POST ['Profile'];
 			if ($model->validate ()) {
 				$model->save();
 				// form inputs are valid, do something here
 				$this->redirect(Yii::app()->homeUrl);
 				return;
+			} else {
+			    //print_r($model); die;
 			}
 		}
 		$this->render ( 'register', array (
