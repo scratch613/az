@@ -42,7 +42,7 @@ class Profile extends CActiveRecord
 			// Add custom check for email
 			array('email', 'email'),
 			array('phone', 'checkPhone'),
-
+			array('login', 'unique'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, fname, mname, lname, nickname, email, phone, login, password', 'safe', 'on'=>'search'),
