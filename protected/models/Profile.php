@@ -17,6 +17,7 @@
 class Profile extends CActiveRecord
 {
 	private $oldPass;
+	public $password2;
 
 
 	/**
@@ -35,11 +36,17 @@ class Profile extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('fname, mname, lname, nickname, email, phone, login, password', 'required'),
+			array('fname, mname, lname, nickname, email, phone, login, password, password2', 'required'),
 			array('fname, mname, lname, nickname, email, phone, login, password', 'length', 'max'=>255),
+
+			// Add custom check for email
+			array('email', 'email'),
+			array('phone', 'checkPhone'),
+
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, fname, mname, lname, nickname, email, phone, login, password', 'safe', 'on'=>'search'),
+			array('password2', 'compare', 'compareAttribute'=>'password', 'message'=>"Пароли не совпадают")
 		);
 	}
 
@@ -69,6 +76,7 @@ class Profile extends CActiveRecord
 			'phone' => 'Телефон',
 			'login' => 'Логин',
 			'password' => 'Пароль',
+			'password2' => 'И еще раз пароль'
 		);
 	}
 
@@ -135,6 +143,11 @@ class Profile extends CActiveRecord
 		return sha1(sha1($password));
 	}
 
-
+	public function checkPhone($attribute, $params) {
+		if (!preg_match('/^[\+0-9\-\(\)\s]*$/', $this->$attribute)) {
+			$message=strtr('{attribute} должен быть телефонным номером в международном формате.', array('{attribute}'=>$this->getAttributeLabel($attribute),));
+			$this->addError($attribute, $message);
+		}
+	}
 
 }

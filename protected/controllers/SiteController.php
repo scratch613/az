@@ -29,6 +29,10 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+		if (Yii::app()->user->isGuest) {
+			$this->redirect('/site/login');
+		}
+
 		$this->render('index');
 	}
 
@@ -124,6 +128,9 @@ class SiteController extends Controller
 			if ($model->validate ()) {
 				$model->save();
 				// form inputs are valid, do something here
+
+
+
 				$this->redirect(Yii::app()->homeUrl);
 				return;
 			} else {

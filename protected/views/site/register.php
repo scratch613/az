@@ -70,6 +70,13 @@
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
+	<div class="row form-group">
+		<?php echo $form->labelEx($model,'password2', array('class'=>'col-sm-2 control-label')); ?>
+		<?php echo $form->textField($model,'password2', array('class'=>'col-sm-4')); ?>
+		<?php echo $form->error($model,'password2'); ?>
+	</div>
+
+
 
 	<div class="row form-group buttons">
 		<div class="col-sm-6">
