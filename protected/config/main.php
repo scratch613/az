@@ -69,12 +69,12 @@ return array(
         ),
 
 	'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=az',
+            'connectionString' => 'mysql:host=localhost;dbname=khanifest',
             'emulatePrepare' => true,
 //          'username' => 'root',
 //          'password' => 'toor',
-           'username' => 'root',
-            'password' => 'toor',
+           'username' => 'khanifest',
+            'password' => 'AlIrthAwbav3',
 
             'charset' => 'utf8',
             'enableProfiling' => true,
@@ -103,11 +103,11 @@ return array(
 					'levels'=>'error, warning, info',
 				),
 				// uncomment the following to show log messages on web pages
-				/*
+				
 				array(
 					'class'=>'CWebLogRoute',
 				),
-				*/
+				
 			),
 		),
 

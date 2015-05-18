@@ -14,10 +14,6 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 --
--- База данных: `az`
---
-CREATE DATABASE IF NOT EXISTS `az` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `az`;
 
 -- --------------------------------------------------------
 

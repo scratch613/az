@@ -133,6 +133,8 @@ class SiteController extends Controller
 
 				$this->redirect(Yii::app()->homeUrl);
 				return;
+			} else {
+			    //print_r($model); die;
 			}
 		}
 		$this->render ( 'register', array (
