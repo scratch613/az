@@ -11,6 +11,7 @@ class UserIdentity extends CUserIdentity
 
     private $_id;
     public $name;
+    public $is_admin;
 
 
     const ERROR_EMAIL_INVALID=3;
@@ -36,7 +37,7 @@ class UserIdentity extends CUserIdentity
             $this->_id=$user->id;
             $this->username=$user->login;
             $this->errorCode=self::ERROR_NONE;
-
+            $this->is_admin = $user->is_admin;
 
         }
         return !$this->errorCode;
