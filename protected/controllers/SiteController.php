@@ -30,7 +30,7 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		if (Yii::app()->user->isGuest) {
-			$this->redirect('/site/login');
+			$this->redirect('login', 'site');
 		}
 
 		$this->render('index');
@@ -108,7 +108,7 @@ class SiteController extends Controller
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
+		$this->redirect('index', 'site');
 	}
 
 	public function actionRegister() {
@@ -131,7 +131,7 @@ class SiteController extends Controller
 
 
 
-				$this->redirect(Yii::app()->homeUrl);
+				$this->redirect('index');
 				return;
 			} else {
 			    //print_r($model); die;
