@@ -108,9 +108,13 @@ class SiteController extends Controller
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
+<<<<<<< HEAD
 		$this->redirect('index', 'site');
+=======
+		$this->redirect('index');
+>>>>>>> e03680ac2df1135e95ec655c6188b083c751d1dc
 	}
-	
+
 	public function actionRegister() {
 		$model = new Profile ( 'register' );
 
