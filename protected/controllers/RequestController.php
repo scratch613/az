@@ -6,7 +6,7 @@ class RequestController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column1';
+	public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -70,21 +70,8 @@ class RequestController extends Controller
 		if(isset($_POST['Request']))
 		{
 			$model->attributes=$_POST['Request'];
-
-			// Add external fields
-			$model->created = $model->updated =  date('Y-m-d H:i:s');
-			$model->external_id = $this->generateExternalId();
-			$model->owner_id = Yii::app()->user->id;
-			$model->status_id = 1; // Awaiting
-
-
-			if ($model->validate()) {
-				if($model->save()) {
-					$this->redirect(array('view','id'=>$model->id));
-				}
-			}
-
-
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -183,19 +170,4 @@ class RequestController extends Controller
 			Yii::app()->end();
 		}
 	}
-
-
-	public function generateExternalId()
-	{
-		$util = new Utils();
-
-		do {
-			$externalId = $util->randomString();
-			$obj = Request::model()->findByAttributes(array('external_id' => $externalId));
-		}
-		while ($obj); // Repeat while we found any object
-		return $externalId;
-
-	}
-
 }

@@ -17,6 +17,11 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'owner_id'); ?>
+		<?php echo $form->textField($model,'owner_id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'external_id'); ?>
 		<?php echo $form->textField($model,'external_id',array('size'=>32,'maxlength'=>32)); ?>
 	</div>
@@ -24,11 +29,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'req_type'); ?>
 		<?php echo $form->textField($model,'req_type'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'nickname'); ?>
-		<?php echo $form->textField($model,'nickname',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
@@ -42,8 +42,28 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'status'); ?>
-		<?php echo $form->textField($model,'status',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->label($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'caption'); ?>
+		<?php echo $form->textField($model,'caption',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'description'); ?>
+		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'fandom'); ?>
+		<?php echo $form->textField($model,'fandom',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'length'); ?>
+		<?php echo $form->textField($model,'length',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">

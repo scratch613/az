@@ -30,13 +30,31 @@
 	</div><!-- header -->
 
 	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
+		<?php
+		//
+
+		$is_admin = Yii::app()->user->isAdmin();
+		$is_user  = !Yii::app()->user->isGuest && !$is_admin;
+		$is_guest = Yii::app()->user->isGuest;
+		$is_logged = !$is_guest;
+
+
+		$this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Главная', 'url'=>array('/site/index')),
 				array('label'=>'Войти', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Выйти ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Создать заявку для '.Yii::app()->user->name, 'url'=>array('/request/create'), 'visible'=>!Yii::app()->user->isGuest)
-			),
+				array('label'=>'Создать заявку для '.Yii::app()->user->name, 'url'=>array('/request/create'), 'visible'=>$is_user),
+
+				// List of all my requests
+				array('label'=>'Просмотреть все мои заявки', 'url'=>array('/request'), 'visible'=>$is_user),
+
+				// List of all users requests
+				array('label'=>'Управление заявками', 'url'=>array('/request/admin'), 'visible'=>$is_admin),
+
+				array('label'=>'Выйти ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+
+
+		),
 		)); ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>

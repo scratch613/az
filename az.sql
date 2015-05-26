@@ -1,28 +1,28 @@
--- phpMyAdmin SQL Dump
--- version 4.0.10deb1
--- http://www.phpmyadmin.net
+-- MySQL dump 10.13  Distrib 5.5.43, for debian-linux-gnu (x86_64)
 --
--- Хост: localhost
--- Время создания: Апр 27 2015 г., 21:51
--- Версия сервера: 5.5.43-0ubuntu0.14.04.1
--- Версия PHP: 5.5.9-1ubuntu4.9
+-- Host: localhost    Database: khanifest
+-- ------------------------------------------------------
+-- Server version	5.5.43-0ubuntu0.14.04.1
 
-SET FOREIGN_KEY_CHECKS=0;
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
---
-
--- --------------------------------------------------------
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Структура таблицы `profiles`
+-- Table structure for table `profiles`
 --
 
 DROP TABLE IF EXISTS `profiles`;
-CREATE TABLE IF NOT EXISTS `profiles` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `profiles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(255) NOT NULL,
   `mname` varchar(255) NOT NULL,
@@ -32,123 +32,116 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `phone` varchar(255) NOT NULL,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `is_admin` enum('y','n') NOT NULL DEFAULT 'n',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Очистить таблицу перед добавлением данных `profiles`
+-- Dumping data for table `profiles`
 --
 
-TRUNCATE TABLE `profiles`;
---
--- Дамп данных таблицы `profiles`
---
-
-INSERT INTO `profiles` (`id`, `fname`, `mname`, `lname`, `nickname`, `email`, `phone`, `login`, `password`) VALUES
-(1, 'Имс', 'Отчество', 'Фамилия', 'Никнейм', 'емейл', 'телефо', 'логин', 'ed7778c1c4a50e030a5ecb7670e689793e5edde6');
-
--- --------------------------------------------------------
+LOCK TABLES `profiles` WRITE;
+/*!40000 ALTER TABLE `profiles` DISABLE KEYS */;
+INSERT INTO `profiles` VALUES (1,'Имс','Отчество','Фамилия','Никнейм','емейл','телефо','логин','ed7778c1c4a50e030a5ecb7670e689793e5edde6','n'),(2,'qwe','eqwer','Afvbkb','nick','email@email.com','123123','qwerty','cbcce4ebcf0e63f32a3d6904397792720f7e40ba','n'),(3,'qwe','eqwer','Afvbkb','nick','email@email.com','123123','qwerty','cbcce4ebcf0e63f32a3d6904397792720f7e40ba','n'),(4,'qweqwe','qweqwe','qweqwe','qweqwe','qweqwe@qwe.qwe','123 456 758','qweqwe','e9efcf2cbfd7ec73f7953f711f929941046d9d1f','n'),(5,'admin','admin','admin','admin','admin@qwe.qwe','123123123','admin','7b2e9f54cdff413fcde01f330af6896c3cd7e6cd','y');
+/*!40000 ALTER TABLE `profiles` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Структура таблицы `request`
+-- Table structure for table `req_types`
+--
+
+DROP TABLE IF EXISTS `req_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `req_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `req_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `req_types`
+--
+
+LOCK TABLES `req_types` WRITE;
+/*!40000 ALTER TABLE `req_types` DISABLE KEYS */;
+INSERT INTO `req_types` VALUES (1,'Постановка'),(2,'Дефиле'),(3,'Групповое дефиле'),(4,'Прочее');
+/*!40000 ALTER TABLE `req_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `request`
 --
 
 DROP TABLE IF EXISTS `request`;
-CREATE TABLE IF NOT EXISTS `request` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `request` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `owner_id` int(11) NOT NULL,
   `external_id` varchar(32) NOT NULL,
   `req_type` int(11) NOT NULL,
-  `nickname` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
   `status_id` int(11) NOT NULL,
+  `caption` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `fandom` varchar(255) NOT NULL,
+  `length` varchar(255) NOT NULL,
   `comment` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `type` (`req_type`),
   KEY `Owner` (`owner_id`),
-  KEY `Status` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  KEY `Status` (`status_id`),
+  CONSTRAINT `request_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `profiles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `request_ibfk_2` FOREIGN KEY (`req_type`) REFERENCES `req_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `request_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Очистить таблицу перед добавлением данных `request`
+-- Dumping data for table `request`
 --
 
-TRUNCATE TABLE `request`;
---
--- Дамп данных таблицы `request`
---
-
-INSERT INTO `request` (`id`, `owner_id`, `external_id`, `req_type`, `nickname`, `created`, `updated`, `status_id`, `comment`) VALUES
-(1, 1, '9204', 2, 'Дефиле', '2015-04-27 18:31:11', '2015-04-27 18:31:11', 1, 'Комментарий'),
-(2, 1, '9209', 4, '223344', '2015-04-27 18:42:00', '2015-04-27 18:42:00', 1, 'werwerewr');
-
--- --------------------------------------------------------
+LOCK TABLES `request` WRITE;
+/*!40000 ALTER TABLE `request` DISABLE KEYS */;
+INSERT INTO `request` VALUES (1,1,'9204',3,'2015-04-27 18:31:11','2015-04-27 18:31:11',1,'','','','','Комментарий'),(2,1,'9209',4,'2015-04-27 18:42:00','2015-04-27 18:42:00',1,'','','','','werwerewr');
+/*!40000 ALTER TABLE `request` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Структура таблицы `req_types`
---
-
-DROP TABLE IF EXISTS `req_types`;
-CREATE TABLE IF NOT EXISTS `req_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `req_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- Очистить таблицу перед добавлением данных `req_types`
---
-
-TRUNCATE TABLE `req_types`;
---
--- Дамп данных таблицы `req_types`
---
-
-INSERT INTO `req_types` (`id`, `req_name`) VALUES
-(1, 'Постановка'),
-(2, 'Дефиле'),
-(3, 'Групповое дефиле'),
-(4, 'Прочее');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `statuses`
+-- Table structure for table `statuses`
 --
 
 DROP TABLE IF EXISTS `statuses`;
-CREATE TABLE IF NOT EXISTS `statuses` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `statuses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Очистить таблицу перед добавлением данных `statuses`
+-- Dumping data for table `statuses`
 --
 
-TRUNCATE TABLE `statuses`;
---
--- Дамп данных таблицы `statuses`
---
+LOCK TABLES `statuses` WRITE;
+/*!40000 ALTER TABLE `statuses` DISABLE KEYS */;
+INSERT INTO `statuses` VALUES (1,'В обработке'),(2,'Ожидает пользователя'),(3,'Принята'),(4,'Отклонена');
+/*!40000 ALTER TABLE `statuses` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-INSERT INTO `statuses` (`id`, `status`) VALUES
-(1, 'В обработке'),
-(2, 'Ожидает пользователя'),
-(3, 'Принята'),
-(4, 'Отклонена');
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
---
--- Ограничения внешнего ключа сохраненных таблиц
---
-
---
--- Ограничения внешнего ключа таблицы `request`
---
-ALTER TABLE `request`
-  ADD CONSTRAINT `request_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `request_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `profiles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `request_ibfk_2` FOREIGN KEY (`req_type`) REFERENCES `req_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-SET FOREIGN_KEY_CHECKS=1;
-COMMIT;
+-- Dump completed on 2015-05-26 18:32:44

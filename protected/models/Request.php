@@ -8,16 +8,19 @@
  * @property integer $owner_id
  * @property string $external_id
  * @property integer $req_type
- * @property string $nickname
  * @property string $created
  * @property string $updated
  * @property integer $status_id
+ * @property string $caption
+ * @property string $description
+ * @property string $fandom
+ * @property string $length
  * @property string $comment
  *
  * The followings are the available model relations:
- * @property Statuses $status
  * @property Profiles $owner
  * @property ReqTypes $reqType
+ * @property Statuses $status
  */
 class Request extends CActiveRecord
 {
@@ -37,13 +40,13 @@ class Request extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('owner_id, external_id, req_type, nickname, created, updated, status_id, comment', 'required'),
+			array('owner_id, external_id, req_type, created, updated, status_id, caption, description, fandom, length, comment', 'required'),
 			array('owner_id, req_type, status_id', 'numerical', 'integerOnly'=>true),
 			array('external_id', 'length', 'max'=>32),
-			array('nickname', 'length', 'max'=>255),
+			array('caption, fandom, length', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, owner_id, external_id, req_type, nickname, created, updated, status_id, comment', 'safe', 'on'=>'search'),
+			array('id, owner_id, external_id, req_type, created, updated, status_id, caption, description, fandom, length, comment', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,9 +58,9 @@ class Request extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'status' => array(self::BELONGS_TO, 'Statuses', 'status_id'),
 			'owner' => array(self::BELONGS_TO, 'Profiles', 'owner_id'),
 			'reqType' => array(self::BELONGS_TO, 'ReqTypes', 'req_type'),
+			'status' => array(self::BELONGS_TO, 'Statuses', 'status_id'),
 		);
 	}
 
@@ -71,10 +74,13 @@ class Request extends CActiveRecord
 			'owner_id' => 'Owner',
 			'external_id' => 'External',
 			'req_type' => 'Req Type',
-			'nickname' => 'Nickname',
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'status_id' => 'Status',
+			'caption' => 'Caption',
+			'description' => 'Description',
+			'fandom' => 'Fandom',
+			'length' => 'Length',
 			'comment' => 'Comment',
 		);
 	}
@@ -101,10 +107,13 @@ class Request extends CActiveRecord
 		$criteria->compare('owner_id',$this->owner_id);
 		$criteria->compare('external_id',$this->external_id,true);
 		$criteria->compare('req_type',$this->req_type);
-		$criteria->compare('nickname',$this->nickname,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->compare('status_id',$this->status_id);
+		$criteria->compare('caption',$this->caption,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('fandom',$this->fandom,true);
+		$criteria->compare('length',$this->length,true);
 		$criteria->compare('comment',$this->comment,true);
 
 		return new CActiveDataProvider($this, array(

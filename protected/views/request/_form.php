@@ -15,31 +15,78 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Поля отмеченные <span class="required">*</span> обязательны.</p>
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row form-group">
+	<div class="row">
+		<?php echo $form->labelEx($model,'owner_id'); ?>
+		<?php echo $form->textField($model,'owner_id'); ?>
+		<?php echo $form->error($model,'owner_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'external_id'); ?>
+		<?php echo $form->textField($model,'external_id',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->error($model,'external_id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'req_type'); ?>
-		<?php echo $form->dropDownList($model,'req_type', CHtml::listData(ReqTypes::model()->findAll(), 'id', 'req_name') ); ?>
+		<?php echo $form->textField($model,'req_type'); ?>
 		<?php echo $form->error($model,'req_type'); ?>
 	</div>
 
-	<div class="row form-group">
-		<?php echo $form->labelEx($model,'nickname'); ?>
-		<?php echo $form->textField($model,'nickname',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'nickname'); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'created'); ?>
+		<?php echo $form->textField($model,'created'); ?>
+		<?php echo $form->error($model,'created'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'updated'); ?>
+		<?php echo $form->textField($model,'updated'); ?>
+		<?php echo $form->error($model,'updated'); ?>
+	</div>
 
-	<div class="row form-group">
+	<div class="row">
+		<?php echo $form->labelEx($model,'status_id'); ?>
+		<?php echo $form->textField($model,'status_id'); ?>
+		<?php echo $form->error($model,'status_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'caption'); ?>
+		<?php echo $form->textField($model,'caption',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'caption'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'description'); ?>
+		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'description'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'fandom'); ?>
+		<?php echo $form->textField($model,'fandom',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'fandom'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'length'); ?>
+		<?php echo $form->textField($model,'length',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'length'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'comment'); ?>
 		<?php echo $form->textArea($model,'comment',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'comment'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
